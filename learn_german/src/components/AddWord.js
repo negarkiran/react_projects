@@ -4,6 +4,7 @@ import germanapi from "../api/german";
 const AddWord = () => {
   const [english, setEnglish] = useState("");
   const [german, setGerman] = useState("");
+  const [showAddStatus, setShowAddStatus] = useState(false);
 
   const onSubmit = async () => {
     const response = await germanapi.post("words", {
@@ -11,6 +12,9 @@ const AddWord = () => {
       german: german,
     });
     console.log("Item added", response);
+    if (response.status == 200) {
+      setShowAddStatus(true);
+    }
   };
 
   return (
@@ -34,6 +38,12 @@ const AddWord = () => {
             Add
           </button>
         </div>
+        {showAddStatus && (
+          <div className="ui info message">
+            <i className="close icon" onClick={e => setShowAddStatus(false)}></i>
+            <div className="header">Item Added Successfully</div>
+          </div>
+        )}
       </div>
     </div>
   );
