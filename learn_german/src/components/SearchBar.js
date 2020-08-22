@@ -13,8 +13,8 @@ class SearchBar extends React.Component {
       <div className="ui segment">
         <form onSubmit={this.onFormSubmit} className="ui form">
           <div className="field">
-            <label>Word Search</label>
             <input
+            placeholder="Search by English.."
               type="text"
               value={this.state.term}
               onChange={(event) =>

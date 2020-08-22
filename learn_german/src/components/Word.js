@@ -2,9 +2,10 @@ import React from "react";
 
 const Word = (props) => {
   return (
-    <div>
-      {props.word.english}: {props.word.german}
-    </div>
+      <tr>
+        <td>{props.word.english}</td>
+        <td>{props.word.german}</td>
+      </tr>
   );
 };
 
