@@ -3,7 +3,7 @@ import Word from "./Word";
 
 const WordList = (props) => {
   const words = props.words && props.words.map((word) => {
-    return <Word key={word.id} word={word} />;
+    return <Word key={word.id} word={word} onDelete={props.onDelete}/>;
   });
 
   return (

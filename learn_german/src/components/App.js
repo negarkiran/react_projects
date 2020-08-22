@@ -9,6 +9,7 @@ const App = () => {
   const [words, setWords] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
   const [activePage, setActivePage] = useState(1);
+  const [wordAdded, setWordAdded] = useState(false);
 
   useEffect(() => {
     const getWords = async () => {
@@ -21,47 +22,30 @@ const App = () => {
     };
 
     getWords();
-  }, [activePage]);
+  }, [activePage, wordAdded]);
 
   const onSearchSubmit = async (term) => {
     const response = await german.get(`words/${term}`);
     setWords(response.data);
   };
 
-  const onPageChange = async (event, pageInfo) => {
-    setActivePage(pageInfo.activePage);
-    console.log("State Page", activePage);
-    console.log("Active Page", pageInfo);
+  const onDelete = async (id) => {
+    await german.delete(`words/${id}`);
   };
 
-  // showMore = async () => {
-  //   this.setState({ page: this.state.page + 1 });
-  //   const response = await german.get("words", {
-  //     params: { page: this.state.page, size: 10 },
-  //   });
-  //   this.setState({ words: this.state.words.concat(response.data.items) });
-  // };
+  const onPageChange = async (event, pageInfo) => {
+    setActivePage(pageInfo.activePage);
+  };
 
   return (
     <div className="ui container" style={{ marginTop: "10px" }}>
-      <AddWord />
+      <AddWord setWordAdded={setWordAdded} wordAdded={wordAdded}/>
       <SearchBar onSubmit={onSearchSubmit}></SearchBar>
-      <WordList words={words} />
-      {/* <div className="ui center aligned basic segment">
-        <button className="ui button" onClick={this.showMore}>
-          Show More
-        </button>
-      </div> */}
-
+      <WordList words={words} onDelete={onDelete} />
       <Pagination
-        boundaryRange={0}
-        siblingRange={1}
-        firstItem={null}
-        lastItem={null}
         activePage={activePage}
         onPageChange={onPageChange}
         totalPages={totalPages}
-        ellipsisItem={null}
       />
     </div>
   );

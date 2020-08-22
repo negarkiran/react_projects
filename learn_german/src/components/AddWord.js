@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import germanapi from "../api/german";
 
-const AddWord = () => {
+const AddWord = ({ setWordAdded, wordAdded }) => {
   const [english, setEnglish] = useState("");
   const [german, setGerman] = useState("");
   const [showAddStatus, setShowAddStatus] = useState(false);
@@ -11,9 +11,11 @@ const AddWord = () => {
       english: english,
       german: german,
     });
-    console.log("Item added", response);
-    if (response.status == 200) {
+    if (response.status === 200) {
       setShowAddStatus(true);
+      setEnglish('');
+      setGerman('');
+      setWordAdded(!wordAdded);
     }
   };
 
