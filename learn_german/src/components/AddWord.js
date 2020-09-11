@@ -1,23 +1,13 @@
-import React, { useState } from "react";
-import germanapi from "../api/german";
+import React, { useState, useEffect } from "react";
 
-const AddWord = ({ setWordAdded, wordAdded }) => {
+const AddWord = ({ wordAdded, onAdd }) => {
   const [english, setEnglish] = useState("");
   const [german, setGerman] = useState("");
-  const [showAddStatus, setShowAddStatus] = useState(false);
 
-  const onSubmit = async () => {
-    const response = await germanapi.post("words", {
-      english: english,
-      german: german,
-    });
-    if (response.status === 200) {
-      setShowAddStatus(true);
-      setEnglish('');
-      setGerman('');
-      setWordAdded(!wordAdded);
-    }
-  };
+  useEffect(() => {
+    setEnglish('');
+    setGerman('');
+  }, [wordAdded]);
 
   return (
     <div>
@@ -36,16 +26,10 @@ const AddWord = ({ setWordAdded, wordAdded }) => {
             value={german}
             onChange={(e) => setGerman(e.target.value)}
           />
-          <button className="ui button" onClick={onSubmit}>
+          <button className="ui button" onClick={() => onAdd(english, german)}>
             Add
           </button>
         </div>
-        {showAddStatus && (
-          <div className="ui info message">
-            <i className="close icon" onClick={e => setShowAddStatus(false)}></i>
-            <div className="header">Item Added Successfully</div>
-          </div>
-        )}
       </div>
     </div>
   );

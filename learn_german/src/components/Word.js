@@ -6,7 +6,10 @@ const Word = (props) => {
       <td>{props.word.english}</td>
       <td>
         {props.word.german}
-        {/* <button className="ui button" onClick={() => props.onDelete(props.word.id)}>Delete</button> */}
+      </td>
+      <td>
+        <button className="ui right floated button">Edit</button>
+        <button className="ui right floated button" onClick={() => props.onDelete(props.word.id)}>Delete</button>
       </td>
     </tr>
   );

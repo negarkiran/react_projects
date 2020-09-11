@@ -8,11 +8,12 @@ const WordList = (props) => {
 
   return (
     <div>
-      <table className="ui celled table">
+      <table className="ui celled striped table">
         <thead>
           <tr>
-            <th>English</th>
-            <th>German</th>
+            <th className="six wide">English</th>
+            <th className="six wide">German</th>
+            <th className="three wide">Action</th>
           </tr>
         </thead>
         <tbody>{words}</tbody>
